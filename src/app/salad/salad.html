@@ -1,0 +1,18 @@
+<p>Bienvenue {{ orderService.name() }}, construis ta salade :</p>
+
+<div class="topping-lists">
+  <app-toppings
+    [toppings]="toppings()"
+    (chooseTopping)="saladService.chooseTopping($event)"
+    buttonLabel="+1"
+  ></app-toppings>
+
+  <div>
+    <p>Vos choix ({{ saladService.totalPrice() }}€)</p>
+    <app-toppings
+      [toppings]="saladService.chosenTopping()"
+      (chooseTopping)="saladService.removeTopping($event.id)"
+      buttonLabel="-1"
+    ></app-toppings>
+  </div>
+</div>

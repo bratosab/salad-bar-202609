@@ -1,0 +1,19 @@
+<form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Votre Nom ?</mat-label>
+    <input matInput type="text" formControlName="name" />
+    <mat-error>Vous ne passerez pas ! </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label >Votre 06 ?</mat-label>
+    <input matInput type="text" formControlName="tel" />
+    @if(orderForm.controls.tel.hasError('required')){
+    <mat-error>Pas de numéro, pas de SALADE!</mat-error>
+    } @else {
+    <mat-error>Est-ce que le numéro est un faux ?</mat-error>
+    }
+  </mat-form-field>
+
+  <button matButton="outlined" type="submit">J'ai très faim !</button>
+</form>
