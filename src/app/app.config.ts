@@ -9,6 +9,8 @@ import { provideEffects } from '@ngrx/effects';
 import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { appReducer } from './store/app.reducers';
+import { saladReducer } from './salad/store/salad.reducers';
+import { loadToppings } from './salad/store/salad.effects';
 
 export const config: ApplicationConfig = {
   providers: [
@@ -18,9 +20,12 @@ export const config: ApplicationConfig = {
     provideHttpClient(),
     provideStore({ 
         router: routerReducer,
-        app: appReducer
+        app: appReducer,
+        salad: saladReducer
      }),
-    provideEffects(),
+    provideEffects({
+      loadToppings
+    }),
     provideRouterStore(),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
