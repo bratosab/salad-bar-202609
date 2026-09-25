@@ -1,9 +1,14 @@
 import { ApplicationConfig } from '@angular/core';
-import { provideBrowserGlobalErrorListeners, importProvidersFrom } from '@angular/core';
+import { provideBrowserGlobalErrorListeners, importProvidersFrom, isDevMode } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { saladRoutes } from './salad/salad.routes';
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { provideRouterStore, routerReducer } from '@ngrx/router-store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { appReducer } from './store/app.reducers';
 
 export const config: ApplicationConfig = {
   providers: [
@@ -11,5 +16,12 @@ export const config: ApplicationConfig = {
     importProvidersFrom(),
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(),
+    provideStore({ 
+        router: routerReducer,
+        app: appReducer
+     }),
+    provideEffects(),
+    provideRouterStore(),
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
 };
